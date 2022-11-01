@@ -30,12 +30,20 @@ public class UserController {
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UpdateUser.Response UpdateUser(@PathVariable Long id,
-                                          @RequestBody UpdateUser.Request request){
+                                          @RequestBody UpdateUser.Request request) {
         UserDto userDto = userService.updateUser(id, request);
         return UpdateUser.Response.builder()
                 .id(userDto.getId())
                 .userId(userDto.getUserId())
                 .password(userDto.getPassword())
                 .build();
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void DeleteUser(
+            @PathVariable Long id
+    ) {
+        userService.deleteUser(id);
     }
 }
