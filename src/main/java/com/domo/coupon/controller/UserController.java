@@ -27,7 +27,7 @@ public class UserController {
         );
     }
 
-    @PatchMapping("/id")
+    @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UpdateUser.Response UpdateUser(@PathVariable Long id,
                                           @RequestBody UpdateUser.Request request){
