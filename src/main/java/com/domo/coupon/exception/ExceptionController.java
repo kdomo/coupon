@@ -20,6 +20,13 @@ public class ExceptionController {
         return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> userNotFountException(Exception e, HttpServletRequest request) {
+        log.warn("Exception url:{}, trace:{}", request.getRequestURI(), e.getStackTrace());
+        ErrorResponse errorResponse = new ErrorResponse("UserNotFound",e.getMessage());
+        return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
     private ErrorResponse makeErrorResponse(BindingResult bindingResult) {
         String code = bindingResult.getFieldError().getCode();
         String message = bindingResult.getFieldError().getDefaultMessage();
