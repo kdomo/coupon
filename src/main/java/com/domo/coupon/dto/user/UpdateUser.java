@@ -11,6 +11,7 @@ public class UpdateUser {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
+    @Builder
     public static class Request {
         private String userId;
 
