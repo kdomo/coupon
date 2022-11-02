@@ -13,7 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -57,5 +60,18 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
         userRepository.delete(user);
+    }
+
+    public List<UserDto> getUser() {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(user -> new UserDto(
+                        user.getId(),
+                        user.getUserId(),
+                        user.getPassword(),
+                        user.getCreatedAt(),
+                        user.getUpdatedAt()
+                        )
+                ).collect(Collectors.toList());
     }
 }

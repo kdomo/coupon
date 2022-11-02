@@ -1,5 +1,6 @@
 package com.domo.coupon.exception;
 
+import com.domo.coupon.exception.user.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +21,17 @@ public class ExceptionController {
         return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> userNotFountException(Exception e, HttpServletRequest request) {
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorResponse> userNotFountException(UserNotFoundException e, HttpServletRequest request) {
         log.warn("Exception url:{}, trace:{}", request.getRequestURI(), e.getStackTrace());
-        ErrorResponse errorResponse = new ErrorResponse("UserNotFound",e.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse("UserNotFound", e.getMessage());
+        return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DuplicateIdException.class)
+    public ResponseEntity<ErrorResponse> DuplicateIdExceptionException(DuplicateIdException e, HttpServletRequest request) {
+        log.warn("Exception url:{}, trace:{}", request.getRequestURI(), e.getStackTrace());
+        ErrorResponse errorResponse = new ErrorResponse("DuplicateIdException", e.getMessage());
         return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
