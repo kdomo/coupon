@@ -4,6 +4,7 @@ import com.domo.coupon.dto.user.CreateUser;
 import com.domo.coupon.dto.user.UpdateUser;
 import com.domo.coupon.dto.user.UserDto;
 import com.domo.coupon.service.UserService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@Api(tags = {"users"})
 @RestController
 @RequestMapping("/users")
 @Log4j2
